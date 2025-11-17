@@ -87,7 +87,7 @@ flutter:
     - assets/landing_bg.jpg
     - assets/images/james_espana.jpeg
     - assets/images/rovannah_delola.jpg
-    - assets/models/bestN_float32.tflite
+    - assets/models/best_float32.tflite
     - assets/models/labels.txt
 
   # fonts:

@@ -8,13 +8,12 @@ import '../services/ml_service.dart';
 import '../services/location_service.dart'; // I-add ni
 import '../services/user_service.dart';
 import '../models/detection_result.dart';
-import '../widgets/detection_overlay.dart';
 import '../theme/app_theme.dart';
 import 'species_info_page.dart';
 
-/// Scan Page with YOLOv8 Integration
+/// Scan Page with Image Classification Integration
 ///
-/// Kini ang page para mag-scan ug detect og mangroves
+/// Kini ang page para mag-scan ug mahibaloan ang mangrove species
 class ScanPage extends StatefulWidget {
   const ScanPage({super.key});
 
@@ -32,7 +31,6 @@ class _ScanPageState extends State<ScanPage> {
 
   File? _selectedImage;
   File? _processedImage; // Para sa fixed orientation ug resized image
-  Size? _imageSize; // Store actual image dimensions
   List<DetectionResult>? _detections;
   bool _isLoading = false;
   String? _errorMessage;
@@ -86,7 +84,7 @@ class _ScanPageState extends State<ScanPage> {
     }
   }
 
-  /// Fix image orientation ug resize para sa model (640x640)
+  /// Fix image orientation ug resize para sa classification model
   Future<File> _fixImageOrientation(File imageFile) async {
     // Basaha ang original image
     final imageBytes = await imageFile.readAsBytes();
@@ -100,48 +98,27 @@ class _ScanPageState extends State<ScanPage> {
     // Kini mo-rotate sa image based sa EXIF data
     originalImage = img.bakeOrientation(originalImage);
 
-    // Resize to 640x640 maintaining aspect ratio
-    // Gamit square crop para match sa model training
-    final int size = 640;
-    img.Image resizedImage;
+    // Resize ug crop para match sa classifier input (YOLOv8-cls prefers square)
+    final targetWidth = _mlService.inputWidth ?? _mlService.inputImageSize;
+    final targetHeight = _mlService.inputHeight ?? _mlService.inputImageSize;
+    final baseSize = targetWidth > 0 ? targetWidth : _mlService.inputImageSize;
 
-    if (originalImage.width > originalImage.height) {
-      // Landscape: resize based on height, then crop width
-      final scaleFactor = size / originalImage.height;
-      final newWidth = (originalImage.width * scaleFactor).round();
-      resizedImage = img.copyResize(
-        originalImage,
-        width: newWidth,
-        height: size,
-      );
-      // Center crop
-      final cropX = (newWidth - size) ~/ 2;
-      resizedImage = img.copyCrop(
-        resizedImage,
-        x: cropX,
-        y: 0,
-        width: size,
-        height: size,
-      );
+    img.Image squaredImage;
+    if (originalImage.width == originalImage.height) {
+      squaredImage = originalImage;
     } else {
-      // Portrait: resize based on width, then crop height
-      final scaleFactor = size / originalImage.width;
-      final newHeight = (originalImage.height * scaleFactor).round();
-      resizedImage = img.copyResize(
+      final squareLength = baseSize > 0 ? baseSize : 640;
+      squaredImage = img.copyResizeCropSquare(
         originalImage,
-        width: size,
-        height: newHeight,
-      );
-      // Center crop
-      final cropY = (newHeight - size) ~/ 2;
-      resizedImage = img.copyCrop(
-        resizedImage,
-        x: 0,
-        y: cropY,
-        width: size,
-        height: size,
+        size: squareLength,
       );
     }
+
+    final resizedImage = img.copyResize(
+      squaredImage,
+      width: targetWidth,
+      height: targetHeight,
+    );
 
     // Save ang processed image
     final tempDir = await Directory.systemTemp.createTemp('aigrove_processed_');
@@ -213,7 +190,7 @@ class _ScanPageState extends State<ScanPage> {
     }
   }
 
-  /// Process ang image using YOLOv8
+  /// Process ang image gamit ang classification model
   Future<void> _processImage(File imageFile) async {
     setState(() {
       _isLoading = true;
@@ -221,26 +198,14 @@ class _ScanPageState extends State<ScanPage> {
       _processedImage = null;
       _detections = null;
       _errorMessage = null;
-      _imageSize = null;
       _nonMangroveResult = false;
     });
 
     try {
-      // Get ug fix ang image orientation, then resize to 640x640
+      // Get ug fix ang image orientation, then i-resize base sa model shape
       final processedFile = await _fixImageOrientation(imageFile);
 
-      // Get ang processed image dimensions (dapat 640x640 na ni)
-      final imageBytes = await processedFile.readAsBytes();
-      final decodedImage = img.decodeImage(imageBytes);
-
-      if (decodedImage != null) {
-        _imageSize = Size(
-          decodedImage.width.toDouble(),
-          decodedImage.height.toDouble(),
-        );
-      }
-
-      // Run detection sa processed image
+      // Run classification sa processed image
       final detections = await _mlService.detectObjects(processedFile);
 
       // Get only the best detection (highest confidence)
@@ -477,11 +442,6 @@ class _ScanPageState extends State<ScanPage> {
             children: [
               // Siguradong parehas og gidak-on ang square preview ug ang details view
               Image.file(imageToDisplay, fit: BoxFit.cover),
-              if (_detections != null && _imageSize != null)
-                DetectionOverlay(
-                  detections: _detections!,
-                  imageSize: _imageSize!,
-                ),
             ],
           ),
         ),

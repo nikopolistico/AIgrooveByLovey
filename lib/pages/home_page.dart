@@ -14,12 +14,13 @@ class HomePage extends StatelessWidget {
     // removed unused 'theme' variable
 
     // compute bottom padding to account for device insets (SafeArea) and add a small buffer
-    final double dynamicBottomPadding = MediaQuery.of(context).viewPadding.bottom + 24.0;
+    final double dynamicBottomPadding =
+        MediaQuery.of(context).viewPadding.bottom + 24.0;
 
     // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async => false,
-       child: Scaffold(
+      child: Scaffold(
         backgroundColor: Colors.transparent, // para makita ang custom bg
         body: Container(
           // Gamit ang same theme-aware gradient gaya ng iba pang pages
@@ -27,14 +28,19 @@ class HomePage extends StatelessWidget {
           child: SafeArea(
             child: SingleChildScrollView(
               // use dynamic bottom padding to avoid tiny overflow (e.g. 2.0 pixels)
-              padding: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, dynamicBottomPadding),
+              padding: EdgeInsets.fromLTRB(
+                16.0,
+                16.0,
+                16.0,
+                dynamicBottomPadding,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Dashboard welcome header (Tagalog/Bisaya comments ok)
                   const Text(
                     'Welcome to AIgrove Dashboard',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -61,7 +67,8 @@ class HomePage extends StatelessWidget {
                           title: 'Carbon Reduction',
                           value: '25.3',
                           unit: 'tons CO₂/ha/yr',
-                          description: 'Annual CO₂ removed per hectare (approx.)',
+                          description:
+                              'Annual CO₂ removed per hectare (approx.)',
                           icon: Icons.co2,
                           color: Colors.teal,
                           bgPattern: 'carbon',
@@ -77,7 +84,8 @@ Takeaway: More mangroves = less CO₂ in the air.''',
                           title: 'Marine Expansion Zones',
                           value: '12.5',
                           unit: 'km²/year',
-                          description: 'Potential suitable area for new/restored mangroves',
+                          description:
+                              'Potential suitable area for new/restored mangroves',
                           icon: Icons.water,
                           color: Colors.indigo,
                           bgPattern: 'marine',
@@ -93,7 +101,8 @@ Note: Expert assessment needed before large-scale planting.''',
                           title: 'Coastal Protection',
                           value: '70',
                           unit: '% wave energy',
-                          description: 'Estimated reduction in wave energy from mangrove belts',
+                          description:
+                              'Estimated reduction in wave energy from mangrove belts',
                           icon: Icons.waves,
                           color: Colors.blue,
                           bgPattern: 'waves',
@@ -117,160 +126,162 @@ Practical tip: Keep buffer zones and avoid removing mangroves near vulnerable co
                   ),
                   const SizedBox(height: 12),
                   GridView.count(
-                     shrinkWrap: true,
-                     physics: const NeverScrollableScrollPhysics(),
-                     crossAxisCount: 2,
-                     mainAxisSpacing: 16,
-                     crossAxisSpacing: 16,
-                     childAspectRatio: 0.85,
-                     // remove 'const' so runtime map/list literals (speciesDetails) are allowed
-                     children: [
-                       ProvinceCard(
-                         province: 'Agusan del Norte',
-                         treeCount: 5,
-                         color: Color.fromARGB(255, 191, 160, 5),
-                         speciesByYear: {'2021': 5},
-                         speciesDetails: {
-                           '2021': [
-                             'Avicennia officinalis',
-                             'Ceriops tagal',
-                             'Rhizophora mucronata',
-                             'Sonneratia alba',
-                             'Sonneratia caseolaris',
-                           ],
-                         },
-                       ),
-                       ProvinceCard(
-                         province: 'Surigao del Sur',
-                         treeCount: 28, // Updated: 13 (2021) + 15 (2022) = 28 total reports
-                         color: Color.fromARGB(255, 126, 202, 130),
-                         speciesByYear: {'2021': 13, '2022': 15}, // Updated counts based sa actual species
-                         speciesDetails: {
-                           '2021': [
-                             'Acrostichum aureum',
-                             'Aegiceras floridum',
-                             'Avicennia marina',
-                             'Brownlowia tersa',
-                             'Bruguiera gymnorrhiza',
-                             'Heritiera littoralis',
-                             'Lumnitzera littorea',
-                             'Nypa fruticans',
-                             'Rhizophora apiculata',
-                             'Rhizophora mucronata',
-                             'Sonneratia alba',
-                             'Sonneratia ovata',
-                             'Xylocarpus granatum',
-                           ],
-                           '2022': [
-                             'Aegiceras corniculatum',
-                             'Avicennia alba',
-                             'Avicennia marina',
-                             'Brownlowia tersa',
-                             'Bruguiera gymnorrhiza',
-                             'Bruguiera sp.',
-                             'Camptostemon philippinense',
-                             'Ceriops tagal',
-                             'Dolichandrone spathacea',
-                             'Heritiera littoralis',
-                             'Rhizophora apiculata',
-                             'Rhizophora mucronata',
-                             'Sonneratia alba',
-                             'Sonneratia ovata',
-                             'Xylocarpus granatum',
-                           ],
-                         },
-                       ),
-                       ProvinceCard(
-                         province: 'Surigao del Norte',
-                         // Updated: 2020 (15 species) + 2021 (8 species) + 2022 (23 species) = 46 total reports
-                         treeCount: 46,
-                         color: Color.fromARGB(255, 40, 167, 33),
-                         speciesByYear: {
-                           '2020': 15,
-                           '2021': 8,
-                           '2022': 23,
-                         },
-                         speciesDetails: {
-                           '2020': [
-                             'Acanthus ilicifolius',
-                             'Acanthus volubilis',
-                             'Avicennia marina',
-                             'Avicennia officinalis',
-                             'Bruguiera gymnorrhiza',
-                             'Bruguiera sexangula',
-                             'Ceriops decandra',
-                             'Ceriops tagal',
-                             'Nypa fruticans',
-                             'Rhizophora apiculata',
-                             'Rhizophora mucronata',
-                             'Rhizophora stylosa',
-                             'Scyphiphora hydrophyllacea',
-                             'Sonneratia alba',
-                             'Xylocarpus granatum',
-                           ],
-                           '2021': [
-                             'Avicennia marina',
-                             'Avicennia officinalis',
-                             'Nypa fruticans',
-                             'Rhizophora apiculata',
-                             'Rhizophora mucronata',
-                             'Rhizophora stylosa',
-                             'Sonneratia alba',
-                             'Xylocarpus granatum',
-                           ],
-                           '2022': [
-                             'Aegiceras corniculatum',
-                             'Avicennia alba',
-                             'Avicennia marina',
-                             'Avicennia officinalis',
-                             'Avicennia rumphiana',
-                             'Brownlowia tersa',
-                             'Bruguiera cylindrica',
-                             'Bruguiera gymnorrhiza',
-                             'Bruguiera sexangula',
-                             'Ceriops tagal',
-                             'Ceriops zippeliana',
-                             'Heritiera littoralis',
-                             'Lumnitzera littorea',
-                             'Lumnitzera racemosa',
-                             'Nypa fruticans',
-                             'Rhizophora apiculata',
-                             'Rhizophora mucronata',
-                             'Rhizophora stylosa',
-                             'Scyphiphora hydrophyllacea',
-                             'Sonneratia alba',
-                             'Sonneratia ovata',
-                             'Xylocarpus granatum',
-                             'Xylocarpus moluccensis',
-                           ],
-                         },
-                       ),
-                       ProvinceCard(
-                         province: 'Dinagat Islands',
-                         treeCount: 14, // Updated: total unique species sa 2021
-                         color: Color.fromARGB(255, 52, 152, 219),
-                         speciesByYear: {'2021': 14}, // Updated: 14 species identified
-                         speciesDetails: {
-                           '2021': [
-                             'Avicennia officinalis',
-                             'Avicennia rumphiana',
-                             'Bruguiera sexangula',
-                             'Ceriops tagal',
-                             'Lumnitzera littorea',
-                             'Nypa fruticans',
-                             'Pemphis acidula',
-                             'Rhizophora apiculata',
-                             'Rhizophora lamarckii',
-                             'Rhizophora mucronata',
-                             'Rhizophora stylosa',
-                             'Sonneratia alba',
-                             'Sonneratia caseolaris',
-                             'Xylocarpus granatum',
-                           ],
-                         },
-                       ),
-                     ],
-                   ),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
+                    childAspectRatio: 0.78,
+                    // remove 'const' so runtime map/list literals (speciesDetails) are allowed
+                    children: [
+                      ProvinceCard(
+                        province: 'Agusan del Norte',
+                        treeCount: 5,
+                        color: Color.fromARGB(255, 191, 160, 5),
+                        speciesByYear: {'2021': 5},
+                        speciesDetails: {
+                          '2021': [
+                            'Avicennia officinalis',
+                            'Ceriops tagal',
+                            'Rhizophora mucronata',
+                            'Sonneratia alba',
+                            'Sonneratia caseolaris',
+                          ],
+                        },
+                      ),
+                      ProvinceCard(
+                        province: 'Surigao del Sur',
+                        treeCount:
+                            28, // Updated: 13 (2021) + 15 (2022) = 28 total reports
+                        color: Color.fromARGB(255, 126, 202, 130),
+                        speciesByYear: {
+                          '2021': 13,
+                          '2022': 15,
+                        }, // Updated counts based sa actual species
+                        speciesDetails: {
+                          '2021': [
+                            'Acrostichum aureum',
+                            'Aegiceras floridum',
+                            'Avicennia marina',
+                            'Brownlowia tersa',
+                            'Bruguiera gymnorrhiza',
+                            'Heritiera littoralis',
+                            'Lumnitzera littorea',
+                            'Nypa fruticans',
+                            'Rhizophora apiculata',
+                            'Rhizophora mucronata',
+                            'Sonneratia alba',
+                            'Sonneratia ovata',
+                            'Xylocarpus granatum',
+                          ],
+                          '2022': [
+                            'Aegiceras corniculatum',
+                            'Avicennia alba',
+                            'Avicennia marina',
+                            'Brownlowia tersa',
+                            'Bruguiera gymnorrhiza',
+                            'Bruguiera sp.',
+                            'Camptostemon philippinense',
+                            'Ceriops tagal',
+                            'Dolichandrone spathacea',
+                            'Heritiera littoralis',
+                            'Rhizophora apiculata',
+                            'Rhizophora mucronata',
+                            'Sonneratia alba',
+                            'Sonneratia ovata',
+                            'Xylocarpus granatum',
+                          ],
+                        },
+                      ),
+                      ProvinceCard(
+                        province: 'Surigao del Norte',
+                        // Updated: 2020 (15 species) + 2021 (8 species) + 2022 (23 species) = 46 total reports
+                        treeCount: 46,
+                        color: Color.fromARGB(255, 40, 167, 33),
+                        speciesByYear: {'2020': 15, '2021': 8, '2022': 23},
+                        speciesDetails: {
+                          '2020': [
+                            'Acanthus ilicifolius',
+                            'Acanthus volubilis',
+                            'Avicennia marina',
+                            'Avicennia officinalis',
+                            'Bruguiera gymnorrhiza',
+                            'Bruguiera sexangula',
+                            'Ceriops decandra',
+                            'Ceriops tagal',
+                            'Nypa fruticans',
+                            'Rhizophora apiculata',
+                            'Rhizophora mucronata',
+                            'Rhizophora stylosa',
+                            'Scyphiphora hydrophyllacea',
+                            'Sonneratia alba',
+                            'Xylocarpus granatum',
+                          ],
+                          '2021': [
+                            'Avicennia marina',
+                            'Avicennia officinalis',
+                            'Nypa fruticans',
+                            'Rhizophora apiculata',
+                            'Rhizophora mucronata',
+                            'Rhizophora stylosa',
+                            'Sonneratia alba',
+                            'Xylocarpus granatum',
+                          ],
+                          '2022': [
+                            'Aegiceras corniculatum',
+                            'Avicennia alba',
+                            'Avicennia marina',
+                            'Avicennia officinalis',
+                            'Avicennia rumphiana',
+                            'Brownlowia tersa',
+                            'Bruguiera cylindrica',
+                            'Bruguiera gymnorrhiza',
+                            'Bruguiera sexangula',
+                            'Ceriops tagal',
+                            'Ceriops zippeliana',
+                            'Heritiera littoralis',
+                            'Lumnitzera littorea',
+                            'Lumnitzera racemosa',
+                            'Nypa fruticans',
+                            'Rhizophora apiculata',
+                            'Rhizophora mucronata',
+                            'Rhizophora stylosa',
+                            'Scyphiphora hydrophyllacea',
+                            'Sonneratia alba',
+                            'Sonneratia ovata',
+                            'Xylocarpus granatum',
+                            'Xylocarpus moluccensis',
+                          ],
+                        },
+                      ),
+                      ProvinceCard(
+                        province: 'Dinagat Islands',
+                        treeCount: 14, // Updated: total unique species sa 2021
+                        color: Color.fromARGB(255, 52, 152, 219),
+                        speciesByYear: {
+                          '2021': 14,
+                        }, // Updated: 14 species identified
+                        speciesDetails: {
+                          '2021': [
+                            'Avicennia officinalis',
+                            'Avicennia rumphiana',
+                            'Bruguiera sexangula',
+                            'Ceriops tagal',
+                            'Lumnitzera littorea',
+                            'Nypa fruticans',
+                            'Pemphis acidula',
+                            'Rhizophora apiculata',
+                            'Rhizophora lamarckii',
+                            'Rhizophora mucronata',
+                            'Rhizophora stylosa',
+                            'Sonneratia alba',
+                            'Sonneratia caseolaris',
+                            'Xylocarpus granatum',
+                          ],
+                        },
+                      ),
+                    ],
+                  ),
 
                   const SizedBox(height: 32),
 
@@ -281,7 +292,10 @@ Practical tip: Keep buffer zones and avoid removing mangroves near vulnerable co
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [Colors.green.shade700, Colors.teal.shade600],
+                            colors: [
+                              Colors.green.shade700,
+                              Colors.teal.shade600,
+                            ],
                           ),
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -371,7 +385,8 @@ class EnvironmentalImpactCard extends StatelessWidget {
   final IconData icon;
   final Color color;
   final String bgPattern;
-  final String info; // additional short/expanded info shown under the main stats
+  final String
+  info; // additional short/expanded info shown under the main stats
 
   const EnvironmentalImpactCard({
     super.key,
@@ -391,10 +406,10 @@ class EnvironmentalImpactCard extends StatelessWidget {
     const double cardWidth = 200;
     // add a tiny buffer to prevent 2.0px rounding overflow on some devices
     const double cardHeight = 222;
- 
-     return Material(
-       color: Colors.transparent,
-       child: InkWell(
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
         onTap: () {
           showDialog(
             context: context,
@@ -406,7 +421,10 @@ class EnvironmentalImpactCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('$value $unit', style: const TextStyle(fontWeight: FontWeight.bold)),
+                    Text(
+                      '$value $unit',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     const SizedBox(height: 8),
                     Text(description),
                     const SizedBox(height: 12),
@@ -415,7 +433,10 @@ class EnvironmentalImpactCard extends StatelessWidget {
                 ),
               ),
               actions: [
-                TextButton(onPressed: () => Navigator.pop(context), child: const Text('Close')),
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Close'),
+                ),
               ],
             ),
           );
@@ -430,10 +451,7 @@ class EnvironmentalImpactCard extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [
-                  color.withAlpha(_alpha(0.8)),
-                  color,
-                ],
+                colors: [color.withAlpha(_alpha(0.8)), color],
               ),
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
@@ -447,48 +465,80 @@ class EnvironmentalImpactCard extends StatelessWidget {
             // clip background pattern so negative Positioned icons cannot overflow the card
             child: Stack(
               clipBehavior: Clip.hardEdge,
-               children: [
-                 _buildBackgroundPattern(bgPattern),
-                 Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                   children: [
-                     Container(
-                       padding: const EdgeInsets.all(8),
-                       decoration: BoxDecoration(
-                         color: Colors.white.withAlpha(_alpha(0.2)),
-                         borderRadius: BorderRadius.circular(12),
-                       ),
-                       child: Icon(icon, color: Colors.white, size: 24),
-                     ),
-                     const SizedBox(height: 12),
-                     Text(title, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-                     const SizedBox(height: 8),
-                     Row(
-                       children: [
-                         Text(value, style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
-                         const SizedBox(width: 4),
-                         Expanded(child: Text(unit, style: TextStyle(color: Colors.white.withAlpha(_alpha(0.9)), fontSize: 12))),
-                       ],
-                     ),
-                     const SizedBox(height: 8),
-                     // short description inside the card
-                     Text(description, style: TextStyle(color: Colors.white.withAlpha(_alpha(0.9)), fontSize: 12)),
-                     const SizedBox(height: 8),
-                     // subtle preview of the expanded info (keeps card compact)
-                     if (info.isNotEmpty)
-                       Flexible(
-                         fit: FlexFit.loose,
-                         child: Text(
-                           // show a short preview inside the card (first line or so)
-                           info.split('\n').first,
-                           overflow: TextOverflow.ellipsis,
-                           maxLines: 3,
-                           style: TextStyle(color: Colors.white.withAlpha(_alpha(0.85)), fontSize: 11, height: 1.2),
-                         ),
-                       ),
-                   ],
-                 ),
-               ],
+              children: [
+                _buildBackgroundPattern(bgPattern),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withAlpha(_alpha(0.2)),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Icon(icon, color: Colors.white, size: 24),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Text(
+                          value,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            unit,
+                            style: TextStyle(
+                              color: Colors.white.withAlpha(_alpha(0.9)),
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    // short description inside the card
+                    Text(
+                      description,
+                      style: TextStyle(
+                        color: Colors.white.withAlpha(_alpha(0.9)),
+                        fontSize: 12,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    // subtle preview of the expanded info (keeps card compact)
+                    if (info.isNotEmpty)
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: Text(
+                          // show a short preview inside the card (first line or so)
+                          info.split('\n').first,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                          style: TextStyle(
+                            color: Colors.white.withAlpha(_alpha(0.85)),
+                            fontSize: 11,
+                            height: 1.2,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
@@ -508,8 +558,16 @@ class EnvironmentalImpactCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Icon(Icons.co2, size: 40, color: Colors.white),
-                Row(children: [Icon(Icons.cloud, size: 30, color: Colors.white), Icon(Icons.air, size: 40, color: Colors.white)]),
-                Transform.rotate(angle: 0.2, child: Icon(Icons.eco, size: 50, color: Colors.white)),
+                Row(
+                  children: [
+                    Icon(Icons.cloud, size: 30, color: Colors.white),
+                    Icon(Icons.air, size: 40, color: Colors.white),
+                  ],
+                ),
+                Transform.rotate(
+                  angle: 0.2,
+                  child: Icon(Icons.eco, size: 50, color: Colors.white),
+                ),
               ],
             ),
           ),
@@ -526,7 +584,12 @@ class EnvironmentalImpactCard extends StatelessWidget {
                 Icon(Icons.waves, size: 40, color: Colors.white),
                 Icon(Icons.waves, size: 40, color: Colors.white),
                 Icon(Icons.beach_access, size: 35, color: Colors.white),
-                Row(children: [Icon(Icons.water_drop, size: 20, color: Colors.white), Icon(Icons.water, size: 30, color: Colors.white)]),
+                Row(
+                  children: [
+                    Icon(Icons.water_drop, size: 20, color: Colors.white),
+                    Icon(Icons.water, size: 30, color: Colors.white),
+                  ],
+                ),
               ],
             ),
           ),
@@ -541,9 +604,19 @@ class EnvironmentalImpactCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Icon(Icons.pets, size: 30, color: Colors.white),
-                Row(children: [Icon(Icons.cruelty_free, size: 25, color: Colors.white), Icon(Icons.bug_report, size: 25, color: Colors.white)]),
+                Row(
+                  children: [
+                    Icon(Icons.cruelty_free, size: 25, color: Colors.white),
+                    Icon(Icons.bug_report, size: 25, color: Colors.white),
+                  ],
+                ),
                 Icon(Icons.forest, size: 40, color: Colors.white),
-                Row(children: [Icon(Icons.grass, size: 30, color: Colors.white), Icon(Icons.spa, size: 25, color: Colors.white)]),
+                Row(
+                  children: [
+                    Icon(Icons.grass, size: 30, color: Colors.white),
+                    Icon(Icons.spa, size: 25, color: Colors.white),
+                  ],
+                ),
               ],
             ),
           ),
@@ -558,7 +631,12 @@ class EnvironmentalImpactCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Icon(Icons.water, size: 40, color: Colors.white),
-                Row(children: [Icon(Icons.arrow_outward, size: 25, color: Colors.white), Icon(Icons.map, size: 30, color: Colors.white)]),
+                Row(
+                  children: [
+                    Icon(Icons.arrow_outward, size: 25, color: Colors.white),
+                    Icon(Icons.map, size: 30, color: Colors.white),
+                  ],
+                ),
                 Icon(Icons.sailing, size: 35, color: Colors.white),
               ],
             ),
@@ -601,8 +679,16 @@ class ProvinceCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
-          BoxShadow(color: color.withAlpha(_alpha(0.3)), blurRadius: 12, offset: const Offset(0, 6)),
-          BoxShadow(color: Colors.black.withAlpha(_alpha(0.1)), blurRadius: 20, offset: const Offset(0, 10)),
+          BoxShadow(
+            color: color.withAlpha(_alpha(0.3)),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+          BoxShadow(
+            color: Colors.black.withAlpha(_alpha(0.1)),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
         ],
       ),
       child: Material(
@@ -621,7 +707,10 @@ class ProvinceCard extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Found $treeCount mangrove reports across years:', style: const TextStyle(fontWeight: FontWeight.w500)),
+                        Text(
+                          'Found $treeCount mangrove reports across years:',
+                          style: const TextStyle(fontWeight: FontWeight.w500),
+                        ),
                         const SizedBox(height: 12),
                         ...speciesByYear.entries.map((entry) {
                           return Padding(
@@ -630,16 +719,35 @@ class ProvinceCard extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                  decoration: BoxDecoration(color: Colors.green.shade100, borderRadius: BorderRadius.circular(10)),
-                                  child: Text('Year ${entry.key}', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green.shade800)),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 4,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.green.shade100,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    'Year ${entry.key}',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.green.shade800,
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(height: 6),
                                 Row(
                                   children: [
-                                    const Icon(Icons.eco, color: Colors.green, size: 16),
+                                    const Icon(
+                                      Icons.eco,
+                                      color: Colors.green,
+                                      size: 16,
+                                    ),
                                     const SizedBox(width: 8),
-                                    Text('${entry.value} species identified', style: const TextStyle(fontSize: 15)),
+                                    Text(
+                                      '${entry.value} species identified',
+                                      style: const TextStyle(fontSize: 15),
+                                    ),
                                   ],
                                 ),
                               ],
@@ -647,12 +755,18 @@ class ProvinceCard extends StatelessWidget {
                           );
                         }),
                         const SizedBox(height: 8),
-                        const Text('These species contribute significantly to coastal protection and biodiversity in the region.', style: TextStyle(fontSize: 13, color: Colors.grey)),
+                        const Text(
+                          'These species contribute significantly to coastal protection and biodiversity in the region.',
+                          style: TextStyle(fontSize: 13, color: Colors.grey),
+                        ),
                       ],
                     ),
                   ),
                   actions: [
-                    TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Close')),
+                    TextButton(
+                      onPressed: () => Navigator.pop(ctx),
+                      child: const Text('Close'),
+                    ),
                     TextButton(
                       onPressed: () {
                         // Open detail dialog on top of summary (so closing detail returns to summary)
@@ -665,53 +779,128 @@ class ProvinceCard extends StatelessWidget {
                                 children: [
                                   Container(
                                     padding: const EdgeInsets.all(8),
-                                    decoration: BoxDecoration(color: theme.colorScheme.primary, borderRadius: BorderRadius.circular(8)),
-                                    child: Icon(Icons.eco, color: theme.colorScheme.onPrimary),
+                                    decoration: BoxDecoration(
+                                      color: theme.colorScheme.primary,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Icon(
+                                      Icons.eco,
+                                      color: theme.colorScheme.onPrimary,
+                                    ),
                                   ),
                                   const SizedBox(width: 12),
-                                  Expanded(child: Text('Detailed of Identified Species', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold))),
-                                  IconButton(icon: Icon(Icons.close, color: theme.iconTheme.color), onPressed: () => Navigator.pop(detailCtx)),
+                                  Expanded(
+                                    child: Text(
+                                      'Detailed of Identified Species',
+                                      style: theme.textTheme.titleMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.close,
+                                      color: theme.iconTheme.color,
+                                    ),
+                                    onPressed: () => Navigator.pop(detailCtx),
+                                  ),
                                 ],
                               ),
                               content: SizedBox(
                                 width: double.maxFinite,
-                                height: MediaQuery.of(detailCtx).size.height * 0.6,
+                                height:
+                                    MediaQuery.of(detailCtx).size.height * 0.6,
                                 child: SingleChildScrollView(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Text('$province • Detailed list of identified species by year', style: theme.textTheme.bodySmall),
+                                      Text(
+                                        '$province • Detailed list of identified species by year',
+                                        style: theme.textTheme.bodySmall,
+                                      ),
                                       const SizedBox(height: 12),
-                                      if (speciesDetails == null || speciesDetails!.isEmpty)
-                                        Center(child: Text('No detailed species data available.', style: theme.textTheme.bodyMedium))
+                                      if (speciesDetails == null ||
+                                          speciesDetails!.isEmpty)
+                                        Center(
+                                          child: Text(
+                                            'No detailed species data available.',
+                                            style: theme.textTheme.bodyMedium,
+                                          ),
+                                        )
                                       else
-                                        for (final entry in speciesDetails!.entries)
+                                        for (final entry
+                                            in speciesDetails!.entries)
                                           Padding(
-                                            padding: const EdgeInsets.only(bottom: 12.0),
+                                            padding: const EdgeInsets.only(
+                                              bottom: 12.0,
+                                            ),
                                             child: Card(
                                               elevation: 2,
-                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
                                               child: Padding(
-                                                padding: const EdgeInsets.all(12.0),
+                                                padding: const EdgeInsets.all(
+                                                  12.0,
+                                                ),
                                                 child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
-                                                        Text('Year ${entry.key}', style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
-                                                        Text('${entry.value.length} species', style: theme.textTheme.bodySmall),
+                                                        Text(
+                                                          'Year ${entry.key}',
+                                                          style: theme
+                                                              .textTheme
+                                                              .titleSmall
+                                                              ?.copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                        ),
+                                                        Text(
+                                                          '${entry.value.length} species',
+                                                          style: theme
+                                                              .textTheme
+                                                              .bodySmall,
+                                                        ),
                                                       ],
                                                     ),
                                                     const SizedBox(height: 8),
                                                     Wrap(
                                                       spacing: 8,
                                                       runSpacing: 8,
-                                                      children: entry.value.map((s) {
+                                                      children: entry.value.map((
+                                                        s,
+                                                      ) {
                                                         return Chip(
-                                                          label: Text(s, style: theme.textTheme.bodyMedium),
-                                                          backgroundColor: theme.colorScheme.primary.withAlpha(_alpha(0.12)),
-                                                          avatar: Icon(Icons.local_florist, size: 18, color: theme.colorScheme.primary),
+                                                          label: Text(
+                                                            s,
+                                                            style: theme
+                                                                .textTheme
+                                                                .bodyMedium,
+                                                          ),
+                                                          backgroundColor: theme
+                                                              .colorScheme
+                                                              .primary
+                                                              .withAlpha(
+                                                                _alpha(0.12),
+                                                              ),
+                                                          avatar: Icon(
+                                                            Icons.local_florist,
+                                                            size: 18,
+                                                            color: theme
+                                                                .colorScheme
+                                                                .primary,
+                                                          ),
                                                         );
                                                       }).toList(),
                                                     ),
@@ -747,13 +936,34 @@ class ProvinceCard extends StatelessWidget {
                   children: [
                     Container(
                       padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(color: Colors.white.withAlpha(_alpha(0.2)), borderRadius: BorderRadius.circular(12)),
-                      child: const Icon(Icons.nature, color: Colors.white, size: 20),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withAlpha(_alpha(0.2)),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Icon(
+                        Icons.nature,
+                        color: Colors.white,
+                        size: 20,
+                      ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(color: Colors.white.withAlpha(_alpha(0.2)), borderRadius: BorderRadius.circular(12)),
-                      child: Text('${speciesByYear.length} YRS', style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1)),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withAlpha(_alpha(0.2)),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        '${speciesByYear.length} YRS',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -762,9 +972,24 @@ class ProvinceCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(province, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600, height: 1.2)),
+                    Text(
+                      province,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        height: 1.2,
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text('Total: $totalSpecies Species', style: TextStyle(color: Colors.white.withAlpha(_alpha(0.8)), fontSize: 12, fontWeight: FontWeight.w400)),
+                    Text(
+                      'Total: $totalSpecies Species',
+                      style: TextStyle(
+                        color: Colors.white.withAlpha(_alpha(0.8)),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
                     const SizedBox(height: 12),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -773,14 +998,36 @@ class ProvinceCard extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('$treeCount', style: const TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.w700, height: 1)),
-                            Text('Reports', style: TextStyle(color: Colors.white.withAlpha(_alpha(0.9)), fontSize: 12, fontWeight: FontWeight.w500)),
+                            Text(
+                              '$treeCount',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 28,
+                                fontWeight: FontWeight.w700,
+                                height: 1,
+                              ),
+                            ),
+                            Text(
+                              'Reports',
+                              style: TextStyle(
+                                color: Colors.white.withAlpha(_alpha(0.9)),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           ],
                         ),
                         Container(
                           padding: const EdgeInsets.all(6),
-                          decoration: BoxDecoration(color: Colors.white.withAlpha(_alpha(0.2)), borderRadius: BorderRadius.circular(8)),
-                          child: const Icon(Icons.trending_up, color: Colors.white, size: 16),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withAlpha(_alpha(0.2)),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Icon(
+                            Icons.trending_up,
+                            color: Colors.white,
+                            size: 16,
+                          ),
                         ),
                       ],
                     ),
@@ -810,7 +1057,7 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
   Widget build(BuildContext context) {
     // Real data gikan sa imong ProvinceCard
     const years = ['2017', '2018', '2019', '2020', '2021', '2022', '2023'];
-    
+
     // Colors matching ProvinceCard - consistent sa whole app
     const cAgusan = Color.fromARGB(255, 191, 160, 5);
     const cSurigaoS = Color.fromARGB(255, 126, 202, 130);
@@ -828,7 +1075,7 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
             child: Icon(Icons.eco, size: 100, color: Colors.green.shade700),
           ),
         ),
-        
+
         // Main Area Chart
         Padding(
           padding: const EdgeInsets.only(top: 16, right: 8, bottom: 8, left: 0),
@@ -857,7 +1104,8 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
                     showTitles: true,
                     interval: 5,
                     getTitlesWidget: (value, meta) {
-                      if (value == 0 || value % 5 != 0) return const SizedBox.shrink();
+                      if (value == 0 || value % 5 != 0)
+                        return const SizedBox.shrink();
                       return Padding(
                         padding: const EdgeInsets.only(right: 8),
                         child: Text(
@@ -889,7 +1137,8 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
                     showTitles: true,
                     getTitlesWidget: (value, meta) {
                       final int idx = value.toInt();
-                      if (idx < 0 || idx >= years.length) return const SizedBox.shrink();
+                      if (idx < 0 || idx >= years.length)
+                        return const SizedBox.shrink();
                       return Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: Text(
@@ -905,8 +1154,12 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
                     reservedSize: 30,
                   ),
                 ),
-                rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                rightTitles: const AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+                topTitles: const AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
               ),
               borderData: FlBorderData(
                 show: true,
@@ -929,7 +1182,7 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
                     FlSpot(3, 17), // 2020: 17 species
                     FlSpot(4, 22), // 2021: 22 species
                     FlSpot(5, 29), // 2022: 29 species
-                    FlSpot(6, 1),  // 2023: 1 species
+                    FlSpot(6, 1), // 2023: 1 species
                   ],
                   isCurved: true,
                   curveSmoothness: 0.35,
@@ -942,11 +1195,11 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
                     show: true,
                     getDotPainter: (spot, percent, barData, index) =>
                         FlDotCirclePainter(
-                      radius: 5,
-                      color: Colors.white,
-                      strokeColor: cSurigaoN,
-                      strokeWidth: 2.5,
-                    ),
+                          radius: 5,
+                          color: Colors.white,
+                          strokeColor: cSurigaoN,
+                          strokeWidth: 2.5,
+                        ),
                   ),
                   belowBarData: BarAreaData(
                     show: true,
@@ -961,11 +1214,11 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
                     ),
                   ),
                 ),
-                
+
                 // Surigao del Sur - Growing trend (2017, 2021, 2022)
                 LineChartBarData(
                   spots: const [
-                    FlSpot(0, 9),  // 2017: 9 species
+                    FlSpot(0, 9), // 2017: 9 species
                     FlSpot(4, 13), // 2021: 13 species
                     FlSpot(5, 15), // 2022: 15 species
                   ],
@@ -980,11 +1233,11 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
                     show: true,
                     getDotPainter: (spot, percent, barData, index) =>
                         FlDotCirclePainter(
-                      radius: 5,
-                      color: Colors.white,
-                      strokeColor: cSurigaoS,
-                      strokeWidth: 2.5,
-                    ),
+                          radius: 5,
+                          color: Colors.white,
+                          strokeColor: cSurigaoS,
+                          strokeWidth: 2.5,
+                        ),
                   ),
                   belowBarData: BarAreaData(
                     show: true,
@@ -999,7 +1252,7 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
                     ),
                   ),
                 ),
-                
+
                 // Dinagat Islands - Single data point (2021)
                 LineChartBarData(
                   spots: const [
@@ -1013,14 +1266,14 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
                     show: true,
                     getDotPainter: (spot, percent, barData, index) =>
                         FlDotCirclePainter(
-                      radius: 7, // Mas dako para mas visible
-                      color: Colors.white,
-                      strokeColor: cDinagat,
-                      strokeWidth: 3,
-                    ),
+                          radius: 7, // Mas dako para mas visible
+                          color: Colors.white,
+                          strokeColor: cDinagat,
+                          strokeWidth: 3,
+                        ),
                   ),
                 ),
-                
+
                 // Agusan del Norte - Single data point (2021)
                 LineChartBarData(
                   spots: const [
@@ -1034,11 +1287,11 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
                     show: true,
                     getDotPainter: (spot, percent, barData, index) =>
                         FlDotCirclePainter(
-                      radius: 7, // Mas dako para mas visible
-                      color: Colors.white,
-                      strokeColor: cAgusan,
-                      strokeWidth: 3,
-                    ),
+                          radius: 7, // Mas dako para mas visible
+                          color: Colors.white,
+                          strokeColor: cAgusan,
+                          strokeWidth: 3,
+                        ),
                   ),
                 ),
               ],
@@ -1048,24 +1301,38 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
                   tooltipPadding: const EdgeInsets.all(10),
                   getTooltipColor: (touchedSpot) {
                     switch (touchedSpot.barIndex) {
-                      case 0: return cSurigaoN;
-                      case 1: return cSurigaoS;
-                      case 2: return cDinagat;
-                      case 3: return cAgusan;
-                      default: return Colors.grey;
+                      case 0:
+                        return cSurigaoN;
+                      case 1:
+                        return cSurigaoS;
+                      case 2:
+                        return cDinagat;
+                      case 3:
+                        return cAgusan;
+                      default:
+                        return Colors.grey;
                     }
                   },
                   getTooltipItems: (touchedSpots) {
                     return touchedSpots.map((spot) {
                       String province;
                       switch (spot.barIndex) {
-                        case 0: province = 'Surigao del Norte'; break;
-                        case 1: province = 'Surigao del Sur'; break;
-                        case 2: province = 'Dinagat Islands'; break;
-                        case 3: province = 'Agusan del Norte'; break;
-                        default: province = 'Unknown';
+                        case 0:
+                          province = 'Surigao del Norte';
+                          break;
+                        case 1:
+                          province = 'Surigao del Sur';
+                          break;
+                        case 2:
+                          province = 'Dinagat Islands';
+                          break;
+                        case 3:
+                          province = 'Agusan del Norte';
+                          break;
+                        default:
+                          province = 'Unknown';
                       }
-                      
+
                       return LineTooltipItem(
                         '$province\n',
                         const TextStyle(
@@ -1097,7 +1364,7 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
             ),
           ),
         ),
-        
+
         // Toggle-able Legend - dili na mag-cover sa data
         if (_showLegend)
           Positioned(
@@ -1115,10 +1382,7 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
                     offset: const Offset(0, 3),
                   ),
                 ],
-                border: Border.all(
-                  color: Colors.green.shade200,
-                  width: 1.5,
-                ),
+                border: Border.all(color: Colors.green.shade200, width: 1.5),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1156,7 +1420,7 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
               ),
             ),
           ),
-        
+
         // Show Legend Button (pag naka-hide)
         if (!_showLegend)
           Positioned(
@@ -1231,13 +1495,22 @@ Widget _buildFormattedInfo(BuildContext context, String info) {
   final bool isDark = theme.brightness == Brightness.dark;
 
   // Updated: use current TextTheme properties (bodyMedium / bodySmall) instead of deprecated bodyText1 / caption
-  final Color textColor = theme.textTheme.bodyMedium?.color ?? (isDark ? Colors.white : Colors.black);
-  final Color secondaryColor = theme.textTheme.bodySmall?.color ?? textColor.withAlpha(_alpha(0.85));
+  final Color textColor =
+      theme.textTheme.bodyMedium?.color ??
+      (isDark ? Colors.white : Colors.black);
+  final Color secondaryColor =
+      theme.textTheme.bodySmall?.color ?? textColor.withAlpha(_alpha(0.85));
 
   // Updated: avoid withOpacity (deprecated) and use withAlpha helper
-  final Color bulletColor = theme.colorScheme.onSurface.withAlpha(_alpha(isDark ? 0.8 : 0.9));
+  final Color bulletColor = theme.colorScheme.onSurface.withAlpha(
+    _alpha(isDark ? 0.8 : 0.9),
+  );
 
-  final lines = info.split('\n').map((s) => s.trim()).where((s) => s.isNotEmpty).toList();
+  final lines = info
+      .split('\n')
+      .map((s) => s.trim())
+      .where((s) => s.isNotEmpty)
+      .toList();
   final List<Widget> widgets = [];
 
   for (final line in lines) {
@@ -1258,7 +1531,10 @@ Widget _buildFormattedInfo(BuildContext context, String info) {
                   width: 6,
                   height: 6,
                   margin: const EdgeInsets.only(top: 6),
-                  decoration: BoxDecoration(color: bulletColor, shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                    color: bulletColor,
+                    shape: BoxShape.circle,
+                  ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
@@ -1266,8 +1542,17 @@ Widget _buildFormattedInfo(BuildContext context, String info) {
                     text: TextSpan(
                       style: TextStyle(color: textColor),
                       children: [
-                        TextSpan(text: '$key: ', style: TextStyle(fontWeight: FontWeight.bold, color: textColor)),
-                        TextSpan(text: val, style: TextStyle(color: secondaryColor)),
+                        TextSpan(
+                          text: '$key: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: textColor,
+                          ),
+                        ),
+                        TextSpan(
+                          text: val,
+                          style: TextStyle(color: secondaryColor),
+                        ),
                       ],
                     ),
                   ),
@@ -1287,10 +1572,15 @@ Widget _buildFormattedInfo(BuildContext context, String info) {
                   width: 6,
                   height: 6,
                   margin: const EdgeInsets.only(top: 6),
-                  decoration: BoxDecoration(color: bulletColor, shape: BoxShape.circle),
+                  decoration: BoxDecoration(
+                    color: bulletColor,
+                    shape: BoxShape.circle,
+                  ),
                 ),
                 const SizedBox(width: 8),
-                Expanded(child: Text(content, style: TextStyle(color: textColor))),
+                Expanded(
+                  child: Text(content, style: TextStyle(color: textColor)),
+                ),
               ],
             ),
           ),
@@ -1302,15 +1592,25 @@ Widget _buildFormattedInfo(BuildContext context, String info) {
         final key = line.substring(0, idx).trim();
         final val = line.substring(idx + 1).trim();
         final keyLower = key.toLowerCase();
-        final isHighlight = keyLower == 'takeaway' || keyLower == 'note' || keyLower == 'practical tip';
-        final TextStyle keyStyle = TextStyle(fontWeight: FontWeight.bold, color: textColor);
-        final TextStyle valStyle = (keyLower == 'takeaway' || keyLower == 'note')
+        final isHighlight =
+            keyLower == 'takeaway' ||
+            keyLower == 'note' ||
+            keyLower == 'practical tip';
+        final TextStyle keyStyle = TextStyle(
+          fontWeight: FontWeight.bold,
+          color: textColor,
+        );
+        final TextStyle valStyle =
+            (keyLower == 'takeaway' || keyLower == 'note')
             ? TextStyle(fontStyle: FontStyle.italic, color: secondaryColor)
             : TextStyle(color: secondaryColor);
 
         widgets.add(
           Padding(
-            padding: EdgeInsets.only(top: isHighlight ? 12.0 : 0.0, bottom: 8.0),
+            padding: EdgeInsets.only(
+              top: isHighlight ? 12.0 : 0.0,
+              bottom: 8.0,
+            ),
             child: RichText(
               text: TextSpan(
                 style: TextStyle(color: textColor),
@@ -1333,5 +1633,8 @@ Widget _buildFormattedInfo(BuildContext context, String info) {
     }
   }
 
-  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: widgets);
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: widgets,
+  );
 }
