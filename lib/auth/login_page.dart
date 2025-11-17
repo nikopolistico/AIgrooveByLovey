@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
     } on AuthException catch (e) {
       if (!mounted) return;
       final hasInvalidCreds =
-          e.code == 'invalid_credentials' || e.statusCode == 400;
+          e.code == 'invalid_credentials' || e.statusCode?.toString() == '400';
       final errorText = hasInvalidCreds
           ? 'Incorrect email or password.'
           : (e.message.isNotEmpty

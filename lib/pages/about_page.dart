@@ -270,10 +270,9 @@ class AboutPage extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            // ignore: deprecated_member_use
             backgroundColor: Theme.of(
               context,
-            ).colorScheme.primary.withOpacity(0.12),
+            ).colorScheme.primary.withValues(alpha: 0.12),
             child: Icon(icon, color: Theme.of(context).colorScheme.primary),
           ),
           const SizedBox(width: 12),

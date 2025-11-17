@@ -1104,8 +1104,9 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
                     showTitles: true,
                     interval: 5,
                     getTitlesWidget: (value, meta) {
-                      if (value == 0 || value % 5 != 0)
+                      if (value == 0 || value % 5 != 0) {
                         return const SizedBox.shrink();
+                      }
                       return Padding(
                         padding: const EdgeInsets.only(right: 8),
                         child: Text(
@@ -1137,8 +1138,9 @@ class _MangroveSpeciesChartState extends State<MangroveSpeciesChart> {
                     showTitles: true,
                     getTitlesWidget: (value, meta) {
                       final int idx = value.toInt();
-                      if (idx < 0 || idx >= years.length)
+                      if (idx < 0 || idx >= years.length) {
                         return const SizedBox.shrink();
+                      }
                       return Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: Text(

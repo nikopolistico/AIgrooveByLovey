@@ -181,7 +181,7 @@ class SpeciesInfoPage extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
-          colors: [_mintPrimary, Color.fromARGB(255, 33, 85, 61)],
+          colors: [_mintSecondary, _mintPrimary],
         ),
         borderRadius: BorderRadius.circular(30),
         boxShadow: [

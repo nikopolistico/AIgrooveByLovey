@@ -148,6 +148,7 @@ class _ScanPageState extends State<ScanPage> {
       }
 
       // Kuha sa user service para ma-sync ang datos sa Supabase
+      if (!mounted) return;
       final userService = context.read<UserService>();
 
       if (userService.isAuthenticated) {
@@ -163,6 +164,7 @@ class _ScanPageState extends State<ScanPage> {
         );
 
         // I-refresh dayon ang profile stats ug activity para accurate ang counters
+        if (!mounted) return;
         final profileService = context.read<ProfileService>();
         try {
           await Future.wait([
@@ -349,7 +351,7 @@ class _ScanPageState extends State<ScanPage> {
               children: [
                 // Padayon nga square preview bisan nag-process pa
                 Image.file(imageToDisplay, fit: BoxFit.cover),
-                Container(color: _mintGreen.withOpacity(0.35)),
+                Container(color: _mintGreen.withValues(alpha: 0.35)),
                 Center(child: _buildProcessingIcon()),
               ],
             ),
@@ -479,8 +481,12 @@ class _ScanPageState extends State<ScanPage> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            // ignore: deprecated_member_use
-            color: const Color.fromARGB(255, 214, 208, 208).withOpacity(0.1),
+            color: const Color.fromARGB(
+              255,
+              214,
+              208,
+              208,
+            ).withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -625,8 +631,7 @@ class _ScanPageState extends State<ScanPage> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            // ignore: deprecated_member_use
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -698,7 +703,7 @@ class _ScanPageState extends State<ScanPage> {
       child: CircularProgressIndicator(
         strokeWidth: 6,
         valueColor: AlwaysStoppedAnimation<Color>(Colors.green[700]!),
-        backgroundColor: Colors.white.withOpacity(0.4),
+        backgroundColor: Colors.white.withValues(alpha: 0.4),
       ),
     );
   }
@@ -721,8 +726,7 @@ class _ScanPageState extends State<ScanPage> {
         ),
         boxShadow: [
           BoxShadow(
-            // ignore: deprecated_member_use
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, -4),
           ),
@@ -747,10 +751,8 @@ class _ScanPageState extends State<ScanPage> {
                     ? Colors.white
                     : Colors.green[700],
                 elevation: isGallerySelected ? 4 : 0,
-                // ignore: deprecated_member_use
                 shadowColor: isGallerySelected
-                    // ignore: deprecated_member_use
-                    ? Colors.green[700]!.withOpacity(0.5)
+                    ? Colors.green[700]!.withValues(alpha: 0.5)
                     : null,
                 side: isGallerySelected
                     ? null
@@ -779,10 +781,8 @@ class _ScanPageState extends State<ScanPage> {
                     ? Colors.white
                     : Colors.green[700],
                 elevation: isCameraSelected ? 4 : 0,
-                // ignore: deprecated_member_use
                 shadowColor: isCameraSelected
-                    // ignore: deprecated_member_use
-                    ? Colors.green[700]!.withOpacity(0.5)
+                    ? Colors.green[700]!.withValues(alpha: 0.5)
                     : null,
                 side: isCameraSelected
                     ? null

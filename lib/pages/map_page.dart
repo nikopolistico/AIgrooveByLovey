@@ -264,14 +264,18 @@ class _MapPageState extends State<MapPage> {
     double maxLng = speciesLocations.first.location.longitude;
 
     for (var location in speciesLocations) {
-      if (location.location.latitude < minLat)
+      if (location.location.latitude < minLat) {
         minLat = location.location.latitude;
-      if (location.location.latitude > maxLat)
+      }
+      if (location.location.latitude > maxLat) {
         maxLat = location.location.latitude;
-      if (location.location.longitude < minLng)
+      }
+      if (location.location.longitude < minLng) {
         minLng = location.location.longitude;
-      if (location.location.longitude > maxLng)
+      }
+      if (location.location.longitude > maxLng) {
         maxLng = location.location.longitude;
+      }
     }
 
     // Add padding to bounds

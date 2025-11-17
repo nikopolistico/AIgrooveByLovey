@@ -177,10 +177,10 @@ class MLService {
     );
   }
 
-  /// Flatten ug himoon nga List<double> ang output buffer gikan sa interpreter
+  // Flatten ug himoon nga List<double> ang output buffer gikan sa interpreter
   List<double> _extractScores(dynamic tensorOutput) {
     if (tensorOutput is List) {
-      if (tensorOutput.isEmpty) return <double>[];
+      if (tensorOutput.isEmpty) return List<double>.empty();
       if (tensorOutput.first is List) {
         return _extractScores(tensorOutput.first);
       }
@@ -188,7 +188,7 @@ class MLService {
           .map<double>((value) => (value as num).toDouble())
           .toList();
     }
-    return <double>[];
+    return List<double>.empty();
   }
 
   /// Normalize ang raw scores ug apply softmax kung kinahanglan
