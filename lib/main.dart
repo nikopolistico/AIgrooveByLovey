@@ -12,6 +12,7 @@ import 'pages/home_page.dart';
 import 'pages/scan_page.dart';
 import 'pages/map_page.dart';
 import 'pages/challenge_page.dart';
+import 'pages/profile_page.dart';
 import 'theme/app_theme.dart';
 import 'widgets/app_drawer.dart';
 import 'widgets/custom_bottom_nav.dart'; // I-import ang bag-ong custom bottom nav
@@ -82,6 +83,7 @@ class _MyAppState extends State<MyApp> {
         '/register': (context) => const RegisterPage(),
         '/home': (context) =>
             MainScreen(isDark: isDark, toggleTheme: toggleTheme),
+        '/profile': (context) => const ProfilePage(),
       },
     );
   }

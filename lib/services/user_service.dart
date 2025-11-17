@@ -321,6 +321,7 @@ class UserService extends ChangeNotifier {
     double? longitude,
     String? notes,
     DateTime? capturedAt,
+    double? confidence,
   }) async {
     try {
       final user = _supabase.auth.currentUser;
@@ -343,6 +344,7 @@ class UserService extends ChangeNotifier {
         if (latitude != null) 'latitude': latitude,
         if (longitude != null) 'longitude': longitude,
         if (notes != null) 'notes': notes,
+        if (confidence != null) 'confidence': confidence,
         // Ibutang ang exact timestamp nga UTC para sakto ang oras
         'created_at': (capturedAt ?? DateTime.now().toUtc()).toIso8601String(),
       };

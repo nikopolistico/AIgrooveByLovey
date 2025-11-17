@@ -4,12 +4,17 @@ import '../models/mangrove_species.dart';
 import 'map_page.dart';
 
 /// Species Information Page
-/// 
+///
 /// Detailed page na nagpakita sa complete info sa detected mangrove
 class SpeciesInfoPage extends StatelessWidget {
   final String scientificName;
   final double confidence;
   final String? imagePath;
+
+  // Mint palette para uniform ang branding
+  static const Color _mintPrimary = Color(0xFF3EB489);
+  static const Color _mintSecondary = Color(0xFFA7F3D0);
+  static const Color _mintDark = Color(0xFF1F6F5F);
 
   const SpeciesInfoPage({
     super.key,
@@ -22,15 +27,15 @@ class SpeciesInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // Debug: Print ang scientific name para makita
     debugPrint('🔍 Looking for species: "$scientificName"');
-    debugPrint('🔍 Available species: ${MangroveSpecies.speciesDatabase.keys.toList()}');
-    
+    debugPrint(
+      '🔍 Available species: ${MangroveSpecies.speciesDatabase.keys.toList()}',
+    );
+
     final species = MangroveSpecies.getSpeciesInfo(scientificName);
 
     if (species == null) {
       return Scaffold(
-        appBar: AppBar(
-          title: const Text('Species Information'),
-        ),
+        appBar: AppBar(title: const Text('Species Information')),
         body: Center(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
@@ -41,18 +46,12 @@ class SpeciesInfoPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 const Text(
                   'Species information not available',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 12),
                 Text(
                   'Searched for: "$scientificName"',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[600],
-                  ),
+                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                 ),
               ],
             ),
@@ -160,10 +159,7 @@ class SpeciesInfoPage extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Colors.green[700]!,
-            Colors.green[900]!,
-          ],
+          colors: [_mintPrimary, _mintDark],
         ),
       ),
       child: Center(
@@ -182,12 +178,16 @@ class SpeciesInfoPage extends StatelessWidget {
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.green[700],
+        gradient: const LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [_mintPrimary, Color.fromARGB(255, 33, 85, 61)],
+        ),
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
             // ignore: deprecated_member_use
-            color: Colors.green[700]!.withOpacity(0.3),
+            color: _mintPrimary.withOpacity(0.3),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
@@ -197,25 +197,25 @@ class SpeciesInfoPage extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const Icon(Icons.verified, color: Colors.white, size: 20),
-            const SizedBox(width: 8),
-            Text(
-              'Confidence: ${(confidence * 100).toStringAsFixed(1)}%',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+          const SizedBox(width: 8),
+          Text(
+            'Confidence: ${(confidence * 100).toStringAsFixed(1)}%',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
             ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildSpeciesNames(BuildContext context, MangroveSpecies species) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final cardColor = isDarkMode ? Colors.grey[850]! : Colors.white;
     final textColor = isDarkMode ? Colors.white : Colors.black;
-    
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(20),
@@ -236,7 +236,7 @@ class SpeciesInfoPage extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.local_florist, color: Colors.green[700], size: 24),
+              Icon(Icons.local_florist, color: _mintPrimary, size: 24),
               const SizedBox(width: 12),
               Text(
                 'Species Names',
@@ -259,11 +259,16 @@ class SpeciesInfoPage extends StatelessWidget {
     );
   }
 
-  Widget _buildNameRow(BuildContext context, String label, String name, bool italic) {
+  Widget _buildNameRow(
+    BuildContext context,
+    String label,
+    String name,
+    bool italic,
+  ) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final labelColor = isDarkMode ? Colors.grey[400]! : Colors.grey[600]!;
     final nameColor = isDarkMode ? Colors.grey[200]! : Colors.grey[800]!;
-    
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -304,7 +309,7 @@ class SpeciesInfoPage extends StatelessWidget {
     final cardColor = isDarkMode ? Colors.grey[850]! : Colors.white;
     final titleColor = isDarkMode ? Colors.white : Colors.black;
     final contentColor = isDarkMode ? Colors.grey[300]! : Colors.grey[800]!;
-    
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(20),
@@ -348,11 +353,7 @@ class SpeciesInfoPage extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             content,
-            style: TextStyle(
-              fontSize: 15,
-              height: 1.6,
-              color: contentColor,
-            ),
+            style: TextStyle(fontSize: 15, height: 1.6, color: contentColor),
           ),
         ],
       ),
@@ -364,7 +365,7 @@ class SpeciesInfoPage extends StatelessWidget {
     final cardColor = isDarkMode ? Colors.grey[850]! : Colors.white;
     final titleColor = isDarkMode ? Colors.white : Colors.black;
     final contentColor = isDarkMode ? Colors.grey[300]! : Colors.grey[800]!;
-    
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(20),
@@ -392,7 +393,11 @@ class SpeciesInfoPage extends StatelessWidget {
                   color: Colors.orange.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(Icons.location_on, color: Colors.orange, size: 24),
+                child: const Icon(
+                  Icons.location_on,
+                  color: Colors.orange,
+                  size: 24,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -422,11 +427,7 @@ class SpeciesInfoPage extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(
-                  Icons.place,
-                  color: Colors.orange[700],
-                  size: 20,
-                ),
+                Icon(Icons.place, color: Colors.orange[700], size: 20),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
@@ -449,24 +450,22 @@ class SpeciesInfoPage extends StatelessWidget {
             child: ElevatedButton.icon(
               onPressed: () {
                 // Debug print para makita unsa ang gi-pass
-                debugPrint('🗺️ Opening map with filter: "${species.scientificName}"');
-                
+                debugPrint(
+                  '🗺️ Opening map with filter: "${species.scientificName}"',
+                );
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MapPage(
-                      filterSpecies: species.scientificName,
-                    ),
+                    builder: (context) =>
+                        MapPage(filterSpecies: species.scientificName),
                   ),
                 );
               },
               icon: const Icon(Icons.map_outlined, size: 20),
               label: const Text(
                 'View on Map',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 14),
@@ -484,12 +483,15 @@ class SpeciesInfoPage extends StatelessWidget {
     );
   }
 
-  Widget _buildCharacteristicsCard(BuildContext context, List<String> characteristics) {
+  Widget _buildCharacteristicsCard(
+    BuildContext context,
+    List<String> characteristics,
+  ) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final cardColor = isDarkMode ? Colors.grey[850]! : Colors.white;
     final titleColor = isDarkMode ? Colors.white : Colors.black;
     final textColor = isDarkMode ? Colors.grey[300]! : Colors.grey[800]!;
-    
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(20),
@@ -531,34 +533,36 @@ class SpeciesInfoPage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          ...characteristics.map((char) => Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 6),
-                      width: 6,
-                      height: 6,
-                      decoration: BoxDecoration(
-                        color: Colors.green[700],
-                        shape: BoxShape.circle,
+          ...characteristics.map(
+            (char) => Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 6),
+                    width: 6,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: _mintPrimary,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      char,
+                      style: TextStyle(
+                        fontSize: 15,
+                        height: 1.5,
+                        color: textColor,
                       ),
                     ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        char,
-                        style: TextStyle(
-                          fontSize: 15,
-                          height: 1.5,
-                          color: textColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

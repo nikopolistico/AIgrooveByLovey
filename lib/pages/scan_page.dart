@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../services/ml_service.dart';
 import '../services/location_service.dart'; // I-add ni
+import '../services/profile_service.dart';
 import '../services/user_service.dart';
 import '../models/detection_result.dart';
 import '../theme/app_theme.dart';
@@ -158,7 +159,19 @@ class _ScanPageState extends State<ScanPage> {
           latitude: latitude,
           longitude: longitude,
           capturedAt: capturedAt,
+          confidence: detection.confidence,
         );
+
+        // I-refresh dayon ang profile stats ug activity para accurate ang counters
+        final profileService = context.read<ProfileService>();
+        try {
+          await Future.wait([
+            profileService.loadProfileStats(),
+            profileService.loadRecentActivity(limit: 10),
+          ]);
+        } catch (e) {
+          debugPrint('⚠️ Failed to refresh profile stats: $e');
+        }
 
         debugPrint('✅ Supabase scan stored @ $capturedAt');
       } else {
